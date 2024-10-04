@@ -1,0 +1,6 @@
+root = true  # Define que este é o arquivo principal .editorconfig do projeto. 
+             # Qualquer configuração fora desse diretório não será considerada.
+
+[*] # Esta seção define configurações que serão aplicadas a todos os arquivos do projeto.
+indent_style = space  # Define que o estilo de indentação deve ser feito com espaços, e não com tabs.
+indent_size = 2  # Define o tamanho da indentação para 2 espaços, o que afeta o alinhamento do código.
