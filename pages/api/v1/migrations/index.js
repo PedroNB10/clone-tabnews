@@ -62,8 +62,7 @@ try {
 
 catch (error){
   console.log('error', error)
-  await dbClient.end()
-  response.status(500).json({error: error.message})
+  throw error
 }
 
 finally {
