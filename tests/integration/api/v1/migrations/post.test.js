@@ -1,48 +1,41 @@
 import database from "infra/database";
 
-import orchestrator from "tests/orchestrator"
+import orchestrator from "tests/orchestrator";
 
-beforeAll(async()=>{
-  await orchestrator.waitForAllServices()
-  await database.query("drop schema public cascade; create schema public;")
-})
-
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+  await database.query("drop schema public cascade; create schema public;");
+});
 
 test("POST to /api/v1/migrations should returns 200", async () => {
-
   const response1 = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: 'POST',
-  })
+    method: "POST",
+  });
 
-  console.log('response1.status: ', response1.status)
+  console.log("response1.status: ", response1.status);
 
-  
-  expect(response1.status).toBe(201)
+  expect(response1.status).toBe(201);
 
-  const response1Body = await response1.json()
+  const response1Body = await response1.json();
 
-  expect(Array.isArray(response1Body)).toBe(true)
-  expect(response1Body.length).toBeGreaterThan(0)
+  expect(Array.isArray(response1Body)).toBe(true);
+  expect(response1Body.length).toBeGreaterThan(0);
 
   const response2 = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: 'POST',
-  })
-  
-  console.log('response2.status: ', response2.status)
-  expect(response2.status).toBe(200)
+    method: "POST",
+  });
 
-  const response2Body = await response2.json()
+  console.log("response2.status: ", response2.status);
+  expect(response2.status).toBe(200);
 
-  expect(Array.isArray(response2Body)).toBe(true)
-  expect(response2Body.length).toBe(0)
+  const response2Body = await response2.json();
 
-
-
-
-} );
+  expect(Array.isArray(response2Body)).toBe(true);
+  expect(response2Body.length).toBe(0);
+});
 
 // test.only(" Test Injection SQL", async () => {
-  
+
 //   // await fetch("http://localhost:3000/api/v1/status?databaseName=local_db")
 //   await fetch("http://localhost:3000/api/v1/status?databaseName='; SELECT pg_sleep(4); --")
 //   // isso resulta em SELECT COUNT(*)::int FROM pg_stat_activity WHERE datname = ''; SELECT pg_sleep(4); --'; SQL Injection
